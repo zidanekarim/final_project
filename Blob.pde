@@ -7,6 +7,6 @@ public class Blob {
         this.posX = posX;
         this.posY = posY;
         this.size = size;
-        
+        circle(posX, posY, size);
     }
 }
