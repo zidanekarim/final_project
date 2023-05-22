@@ -1,4 +1,4 @@
-public class Pellet {
+class Pellet {
  int posX;
  int posY;
  color myColor;
