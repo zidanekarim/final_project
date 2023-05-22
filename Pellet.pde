@@ -12,6 +12,7 @@ public class Pellet {
  }
  
  void drawPellet() {
+  noStroke();
   fill(myColor);
   circle(posX, posY, 10);  
  }
