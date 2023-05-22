@@ -1,33 +1,65 @@
-public class Blob {
-    int posX;
-    int posY;
-    int size;
-    color myColor;
-   
-    
-    public Blob(int posX, int posY, int size) {
-        this.posX = posX;
-        this.posY = posY;
-        this.size = size;
-        myColor = color(R,G,B);
-        
+class Blob {
+  int posX;
+  int posY;
+  int size;
+  color myColor;
+
+  public Blob(int posX, int posY, int size, color myColor) {
+    this.posX = posX;
+    this.posY = posY;
+    this.size = size;
+    this.myColor = myColor;
+  }
+
+  void update() {
+    checkBoundary();
+  }
+
+  void checkBoundary() {
+    if (posX < 0) {
+      posX = width;
+    } else if (posX > width) {
+      posX = 0;
     }
-    
-    void followMouse() {
-      float targetX = mouseX;
-      float targetY = mouseY;
-      float easing = 0.02;  // Adjust the easing value to control the speed of movement
-    
-      float dx = targetX - posX;
-      float dy = targetY - posY;
-      
-      posX += dx * easing;
-      posY += dy * easing;
+
+    if (posY < 0) {
+      posY = height;
+    } else if (posY > height) {
+      posY = 0;
     }
-    
-    void display() {
-      stroke(0);
-      fill(myColor);
-      circle(posX, posY, size);
+  }
+
+  void followMouse() {
+    float targetX = mouseX;
+    float targetY = mouseY;
+    float easing = (1.0 / size);
+
+    float dx = targetX - posX;
+    float dy = targetY - posY;
+
+    posX += dx * easing;
+    posY += dy * easing;
+  }
+
+  void eatPellet() {
+    for (int i = pellets.size() - 1; i >= 0; i--) {
+      int pelletX = pellets.get(i).posX;
+      int pelletY = pellets.get(i).posY;
+
+      float distance = dist(posX, posY, pelletX, pelletY);
+      int blobRadius = size / 2;
+      int pelletRadius = 10;
+
+      if (distance <= blobRadius - pelletRadius) {
+        pellets.remove(i);
+        size += 5; // Increase the size of the blob when eating a pellet
+      }
     }
+  }
+
+  void display() {
+    stroke(0);
+    fill(myColor);
+    circle(posX, posY, size);
+  }
 }
