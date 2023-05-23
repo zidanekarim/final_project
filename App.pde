@@ -7,10 +7,10 @@ ArrayList<Blob> myBlobs;
 ArrayList<Pellet> pellets;
 
 boolean spacebarPressed;
-boolean enterPressed;
+//boolean enterPressed;
 
 int lastPelletTime;
-
+int lastRecombineTime;
 void setup() {
   size(1280, 720);
   w = width / 2;
@@ -21,6 +21,7 @@ void setup() {
   myBlobs = new ArrayList<Blob>();
   myBlobs.add(new Blob(w, h, 50, color(R, G, B)));
   lastPelletTime = millis();
+  lastRecombineTime = millis();  
   pellets = new ArrayList<Pellet>();
 }
 
@@ -34,7 +35,13 @@ void draw() {
     blob.update();
     blob.display();
     blob.followMouse();
+    blob.checkCollision();
     blob.eatPellet();
+  }
+  
+  if (millis() - lastRecombineTime >= 3000) {
+    recombineBlobs();
+    lastRecombineTime = millis();  // Update the lastRecombineTime variable
   }
 
   generatePellets();
@@ -44,18 +51,13 @@ void handleKeyPress() {
   if (spacebarPressed) {
     spacebarPressed = false;
     splitBlobs();
-  } else if (enterPressed) {
-    enterPressed = false;
-    recombineBlobs();
-  }
+  } 
 }
 
 void keyPressed() {
   if (key == ' ') {
     spacebarPressed = true;
-  } else if (keyCode == ENTER) {
-    enterPressed = true;
-  }
+  } 
 }
 
 void splitBlobs() {
@@ -74,18 +76,25 @@ void splitBlobs() {
 
 
 void recombineBlobs() {
+  boolean toRecombine = true;
+  Blob mainBlob = myBlobs.get(0);
   if (myBlobs.size() > 1) {
     int totalSize = 0;
     for (Blob blob : myBlobs) {
-      totalSize += blob.size;
+      if (dist(mainBlob.posX, mainBlob.posY,blob.posX,blob.posY) <= (2 * mainBlob.size) + 5) totalSize += blob.size;
+      else {
+        toRecombine = false;
+        break;
+      }
     }
 
-    Blob mainBlob = myBlobs.get(0);
+    if (toRecombine) {
     mainBlob.size = totalSize; // Set the size of the main blob to the sum of all blob sizes
 
     // Remove all blobs except the main blob
     for (int i = myBlobs.size() - 1; i > 0; i--) {
       myBlobs.remove(i);
+    }
     }
   }
 }

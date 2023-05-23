@@ -3,6 +3,7 @@ class Blob {
   int posY;
   int size;
   color myColor;
+  boolean touching = false; 
 
   public Blob(int posX, int posY, int size, color myColor) {
     this.posX = posX;
@@ -27,6 +28,8 @@ class Blob {
     } else if (posY > height) {
       posY = 0;
     }
+    
+    
   }
 
   void followMouse() {
@@ -61,5 +64,22 @@ class Blob {
     stroke(0);
     fill(myColor);
     circle(posX, posY, size);
+  }
+  void checkCollision() {
+    for (Blob other : myBlobs) {
+      if (other != this) {
+        float minDist = size / 2 + other.size / 2;
+        float actualDist = dist(posX, posY, other.posX, other.posY);
+        if (actualDist < minDist) {
+          PVector direction = PVector.sub(new PVector(other.posX, other.posY), new PVector(posX, posY));
+          direction.normalize();
+          PVector correction = direction.mult((minDist - actualDist) / 2);
+          posX -= correction.x;
+          posY -= correction.y;
+
+          touching = true;  // Set the touching variable to true
+        }
+      }
+    }
   }
 }
