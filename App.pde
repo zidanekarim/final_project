@@ -8,7 +8,7 @@ ArrayList<Pellet> pellets;
 
 boolean spacebarPressed;
 //boolean enterPressed;
-
+int lastEnemyTime;
 int lastPelletTime;
 int lastRecombineTime;
 void setup() {
@@ -22,6 +22,7 @@ void setup() {
   myBlobs.add(new Blob(w, h, 50, color(R, G, B)));
   lastPelletTime = millis();
   lastRecombineTime = millis();  
+  lastEnemyTime = millis();
   pellets = new ArrayList<Pellet>();
 }
 
@@ -42,6 +43,12 @@ void draw() {
   if (millis() - lastRecombineTime >= 3000) {
     recombineBlobs();
     lastRecombineTime = millis();  // Update the lastRecombineTime variable
+  }
+  
+  
+  if (millis() - lastEnemyTime >= 5000) {
+    Enemy newEnemy = new Enemy( int(random(width)), int(random(height)), 5,  color(R, G, B));
+    lastEnemyTime = millis();  // Update the lastEnemyTime variable
   }
 
   generatePellets();

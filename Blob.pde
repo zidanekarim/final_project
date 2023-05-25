@@ -1,9 +1,9 @@
 class Blob {
-  int posX;
-  int posY;
-  int size;
-  color myColor;
-  boolean touching = false; 
+  public int posX;
+  public int posY;
+  public int size;
+  public color myColor;
+  public boolean touching = false; 
 
   public Blob(int posX, int posY, int size, color myColor) {
     this.posX = posX;
