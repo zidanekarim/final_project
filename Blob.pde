@@ -18,15 +18,15 @@ class Blob {
 
   void checkBoundary() {
     if (posX < 0) {
-      posX = width;
-    } else if (posX > width) {
       posX = 0;
+    } else if (posX > width) {
+      posX = width;
     }
 
     if (posY < 0) {
-      posY = height;
-    } else if (posY > height) {
       posY = 0;
+    } else if (posY > height) {
+      posY = height;
     }
     
     

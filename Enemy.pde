@@ -1,42 +1,54 @@
 class Enemy extends Blob {
-  
-  
-  
+
+
+
   public Enemy(int posX, int posY, int size, color myColor) {
-    super(posX, posY, size, myColor); 
+    super(posX, posY, size, myColor);
   }
-  
+
   void display() {
     stroke(0);
     fill(myColor);
     circle(posX, posY, size);
   }
   
-  
+  void checkBoundary() {
+    if (this.posX < 0) {
+      this.posX = 0;
+    } else if (this.posX > width) {
+      this.posX = width;
+    }
+
+    if (this.posY < 0) {
+      this.posY = 0;
+    } else if (this.posY > height) {
+      this.posY = height;
+    }
+    
+    
+  }
+
+
+
   void moveEnemy(Blob target) {
-   if (size >= target.size) {
     float targetX = target.posX;
     float targetY = target.posY;
     float easing = (1.0 / size);
+    if (size >= target.size) {
+      
 
-    float dx = targetX - posX;
-    float dy = targetY - posY;
+      float dx = targetX - posX;
+      float dy = targetY - posY;
 
-    posX += dx * easing;
-    posY += dy * easing;
-   }
-   else {
-    float targetX = target.posX*-1;
-    float targetY = target.posY*-1;
-    float easing = (1.0 / size);
+      posX += dx * easing;
+      posY += dy * easing;
+    } else {
 
-    float dx = targetX - posX;
-    float dy = targetY - posY;
+      float dx = posX - targetX;
+      float dy = posY - targetY;
 
-    posX += dx * easing;
-    posY += dy * easing;
-   }
-    
+      posX += dx * easing;
+      posY += dy * easing;
+    }
   }
-  
 }
