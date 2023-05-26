@@ -30,25 +30,36 @@ class Enemy extends Blob {
 
 
 
-  void moveEnemy(Blob target) {
-    float targetX = target.posX;
-    float targetY = target.posY;
-    float easing = (1.0 / size);
-    if (size >= target.size) {
-      
+void moveEnemy(Blob target) {
+  float targetX = target.posX;
+  float targetY = target.posY;
+  float easing = 0.05; // Adjust the easing value to control the speed of movement
 
-      float dx = targetX - posX;
-      float dy = targetY - posY;
+  float dx = targetX - posX;
+  float dy = targetY - posY;
 
-      posX += dx * easing;
-      posY += dy * easing;
-    } else {
+  // Calculate the distance between the enemy and the target
+  float distance = sqrt(dx * dx + dy * dy);
 
-      float dx = posX - targetX;
-      float dy = posY - targetY;
-
-      posX += dx * easing;
-      posY += dy * easing;
-    }
+  if (distance != 0) {
+    // Normalize the direction vector
+    dx /= distance;
+    dy /= distance;
   }
+
+  if (size >= target.size) {
+    // Move towards the target
+    posX += dx * easing * size;
+    posY += dy * easing * size;
+  } else {
+    // Move away from the target
+    posX -= dx * easing * size;
+    posY -= dy * easing * size;
+  }
+}
+
+  
+  
+  
+  
 }
