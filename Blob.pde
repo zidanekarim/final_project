@@ -16,21 +16,20 @@ class Blob {
     checkBoundary();
   }
 
-  void checkBoundary() {
-    if (posX < 0) {
-      posX = 0;
-    } else if (posX > width) {
-      posX = width;
-    }
-
-    if (posY < 0) {
-      posY = 0;
-    } else if (posY > height) {
-      posY = height;
-    }
-    
-    
+void checkBoundary() {
+  if (posX < -size/2) {
+    posX = width + size/2;
+  } else if (posX > width + size/2) {
+    posX = -size/2;
   }
+
+  if (posY < -size/2) {
+    posY = height + size/2;
+  } else if (posY > height + size/2) {
+    posY = -size/2;
+  }
+}
+
 
   void followMouse() {
     float targetX = mouseX;
@@ -56,9 +55,34 @@ class Blob {
       if (distance <= blobRadius - pelletRadius) {
         pellets.remove(i);
         size += 5; // Increase the size of the blob when eating a pellet
+        score += 10;
       }
     }
   }
+  
+void eatEnemy() {
+  for (int i = enemies.size() - 1; i >= 0; i--) {
+    Blob enemy = enemies.get(i);
+    float distance = dist(posX, posY, enemy.posX, enemy.posY);
+    int blobRadius = size / 2;
+    int enemyRadius = enemy.size / 2;
+
+    if (distance <= (blobRadius + enemyRadius)/2) {
+      if (blobRadius > enemyRadius) {
+        enemies.remove(i);
+        size += enemyRadius;
+        score += 100;
+        println("Blob ate an enemy!");
+      } else {
+        // Blob is smaller or equal in size, it gets eaten
+        println("Blob got eaten by an enemy!");
+        myBlobs.remove(this);
+        gameOver = true;
+      }
+    }
+  }
+}
+
 
   void display() {
     stroke(0);

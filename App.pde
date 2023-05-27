@@ -6,14 +6,17 @@ float B;
 ArrayList<Blob> myBlobs;
 ArrayList<Pellet> pellets;
 ArrayList<Enemy> enemies;
+boolean gameOver = false;
 
 boolean spacebarPressed;
 //boolean enterPressed;
 int lastEnemyTime;
 int lastPelletTime;
 int lastRecombineTime;
+int score;
 void setup() {
-  size(1280, 720);
+  score = 0;
+  size(1680, 1050);
   w = width / 2;
   h = height / 2;
   R = random(255);
@@ -30,6 +33,8 @@ void setup() {
 
 void draw() {
   background(255);
+  
+  if (!gameOver) {
 
   handleKeyPress();
 
@@ -40,6 +45,7 @@ void draw() {
     blob.followMouse();
     blob.checkCollision();
     blob.eatPellet();
+    blob.eatEnemy();
   }
   
   if (millis() - lastRecombineTime >= 3000) {
@@ -49,13 +55,24 @@ void draw() {
   
   
   if (millis() - lastEnemyTime >= 5000) {
-    Enemy newEnemy = new Enemy( int(random(width)), int(random(height)), 50,  color(int(random(255)), int(random(255)), int(random(255))));
+    Enemy newEnemy = new Enemy( int(random(width)), int(random(height)), int(random((myBlobs.get(0)).size +25)),  color(int(random(255)), int(random(255)), int(random(255))));
     enemies.add(newEnemy);
     lastEnemyTime = millis();  // Update the lastEnemyTime variable
   }
 
   generatePellets();
   drawEnemies();
+  }
+  else {
+    noLoop();
+    textSize(40);
+    textAlign(CENTER);
+    fill(255, 0, 0);
+    text("Game Over", width/2, height/2);
+    text("Score: " + score, width/2, height/2 + 50);
+    
+  }
+  
 }
 
 void handleKeyPress() {
@@ -124,10 +141,15 @@ void generatePellets() {
 
 
 void drawEnemies() {
-  
-  for (Enemy enemy : enemies) {
+  if (!gameOver) {
+    for (Enemy enemy : enemies) {
     enemy.checkBoundary();
     enemy.display();
     enemy.moveEnemy(myBlobs.get(0));
+    enemy.eatPellet();
   }
+    
+  }
+  
+  
 }

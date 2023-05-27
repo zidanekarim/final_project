@@ -12,20 +12,20 @@ class Enemy extends Blob {
     circle(posX, posY, size);
   }
   
-  void checkBoundary() {
-    if (this.posX < 0) {
-      this.posX = 0;
-    } else if (this.posX > width) {
-      this.posX = width;
-    }
+  void eatPellet() {
+    for (int i = pellets.size() - 1; i >= 0; i--) {
+      int pelletX = pellets.get(i).posX;
+      int pelletY = pellets.get(i).posY;
 
-    if (this.posY < 0) {
-      this.posY = 0;
-    } else if (this.posY > height) {
-      this.posY = height;
+      float distance = dist(this.posX, this.posY, pelletX, pelletY);
+      int blobRadius = this.size / 2;
+      int pelletRadius = 10;
+
+      if (distance <= blobRadius - pelletRadius) {
+        pellets.remove(i);
+        this.size += 5; // Increase the size of the blob when eating a pellet
+      }
     }
-    
-    
   }
 
 
