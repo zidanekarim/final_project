@@ -12,23 +12,8 @@ class Blob {
     this.myColor = myColor;
   }
 
-  void update() {
-    checkBoundary();
-  }
 
-void checkBoundary() {
-  if (posX < -size/2) {
-    posX = width + size/2;
-  } else if (posX > width + size/2) {
-    posX = -size/2;
-  }
 
-  if (posY < -size/2) {
-    posY = height + size/2;
-  } else if (posY > height + size/2) {
-    posY = -size/2;
-  }
-}
 
 
   void followMouse() {

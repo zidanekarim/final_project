@@ -16,7 +16,7 @@ int lastRecombineTime;
 int score;
 void setup() {
   score = 0;
-  size(1680, 1050);
+  size(1600, 900);
   w = width / 2;
   h = height / 2;
   R = random(255);
@@ -37,10 +37,10 @@ void draw() {
   if (!gameOver) {
 
   handleKeyPress();
-
+  
   for (int i = myBlobs.size() - 1; i >= 0; i--) {
     Blob blob = myBlobs.get(i);
-    blob.update();
+    //blob.update();
     blob.display();
     blob.followMouse();
     blob.checkCollision();
@@ -59,9 +59,19 @@ void draw() {
     enemies.add(newEnemy);
     lastEnemyTime = millis();  // Update the lastEnemyTime variable
   }
-
+  generateNewMap();
   generatePellets();
   drawEnemies();
+  
+  
+  textAlign(RIGHT);
+  fill(0);
+  if (myBlobs.size() > 0) {
+  text("Coordinates: (" + myBlobs.get(0).posX + ", " + myBlobs.get(0).posY + ")", width - 20, 30);
+  }
+  text("Score: " + score, width - 20, 60);
+  
+  
   }
   else {
     noLoop();
@@ -72,6 +82,7 @@ void draw() {
     text("Score: " + score, width/2, height/2 + 50);
     
   }
+  
   
 }
 
@@ -126,6 +137,56 @@ void recombineBlobs() {
     }
   }
 }
+
+void generateNewMap() {
+  if (!gameOver) {
+  Blob mainBlob = myBlobs.get(0);
+  int posX = mainBlob.posX;
+  int posY = mainBlob.posY;
+  int size = mainBlob.size;
+  
+  int boundaryThreshold = size / 2; // Distance threshold from the edge
+  
+  if (posX - boundaryThreshold < 0) {
+    resetMap();
+    for (Blob blob : myBlobs) {
+      blob.posX = width - size;
+    }
+    
+    
+    
+  } 
+  else if (posX + size > width) {
+    resetMap();
+    for (Blob blob : myBlobs) {
+      blob.posX = size;
+    }
+
+  }
+
+  if (posY - boundaryThreshold < 0) {
+    resetMap();
+    for (Blob blob : myBlobs) {
+      blob.posY = height - size;
+    }
+  } 
+  else if (posY + size > height) {
+    resetMap();
+    for (Blob blob : myBlobs) {
+      blob.posY = size;
+    }
+  }
+  }
+}
+
+void resetMap() {
+  pellets.clear();
+  enemies.clear();
+  lastPelletTime = millis();
+  background(255);
+}
+
+
 
 void generatePellets() {
   if (millis() - lastPelletTime >= 1000) {
