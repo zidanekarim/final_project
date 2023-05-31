@@ -13,20 +13,31 @@ class Blob {
   }
 
 
-
-
-
   void followMouse() {
-    float targetX = mouseX;
-    float targetY = mouseY;
-    float easing = (1.0 / size);
-
-    float dx = targetX - posX;
-    float dy = targetY - posY;
-
-    posX += dx * easing;
-    posY += dy * easing;
+  float targetX = mouseX;
+  float targetY = mouseY;
+  
+  PVector target = new PVector(targetX, targetY);
+  PVector currentPosition = new PVector(posX, posY);
+  
+  PVector direction = PVector.sub(target, currentPosition);
+  direction.normalize();
+  
+  float speed = 250.0 / size; // Adjust the speed here
+  
+  PVector velocity = direction.mult(speed);
+  
+  posX += velocity.x;
+  posY += velocity.y;
+  
+  // Adjust the position if the blob goes off the screen horizontally
+  if (posX < 0) {
+    posX = 0;
+  } else if (posX > width) {
+    posX = width;
   }
+}
+
 
   void eatPellet() {
     for (int i = pellets.size() - 1; i >= 0; i--) {

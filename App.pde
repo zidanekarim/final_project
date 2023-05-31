@@ -74,17 +74,43 @@ void draw() {
   
   }
   else {
-    noLoop();
+    //noLoop();
     textSize(40);
     textAlign(CENTER);
     fill(255, 0, 0);
     text("Game Over", width/2, height/2);
     text("Score: " + score, width/2, height/2 + 50);
     
+    fill(0);
+    rect(w-150, h+85, 300, 100);
+    
+    fill(255, 0, 0);
+    
+    text("Play Again? " , width/2, height/2 + 150);
+    
+    
+    
+    
+    
+    
   }
   
   
 }
+
+
+void mousePressed() {
+  if (gameOver) {
+    if ( mouseX >= w-150 && mouseX =< w+150 && mouseY > h+85 && mouseY< h+185) {
+      
+       setup();
+       gameOver = false;
+      }
+    
+  }
+  
+}
+
 
 void handleKeyPress() {
   if (spacebarPressed) {
