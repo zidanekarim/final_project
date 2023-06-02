@@ -7,18 +7,21 @@ ArrayList<Blob> myBlobs;
 ArrayList<Pellet> pellets;
 ArrayList<Enemy> enemies;
 boolean gameOver = false;
-
+String[] highScores;
 boolean spacebarPressed;
 //boolean enterPressed;
 int lastEnemyTime;
 int lastPelletTime;
 int lastRecombineTime;
 int score;
+int prevScore;
 void setup() {
   score = 0;
   size(1600, 900);
   w = width / 2;
   h = height / 2;
+  highScores = loadStrings("highscores.txt");
+  prevScore = int(loadStrings("highscores.txt")[0]);
   R = random(255);
   G = random(255);
   B = random(255);
@@ -29,6 +32,12 @@ void setup() {
   lastRecombineTime = millis();  
   lastEnemyTime = millis();
   pellets = new ArrayList<Pellet>();
+}
+void saveHighScores() {
+  if (score > prevScore) {
+    String[] newScore = {score+""};
+    saveStrings("highscores.txt", newScore);
+  }
 }
 
 void draw() {
@@ -65,6 +74,7 @@ void draw() {
   
   
   textAlign(RIGHT);
+  textSize(20);
   fill(0);
   if (myBlobs.size() > 0) {
   text("Coordinates: (" + myBlobs.get(0).posX + ", " + myBlobs.get(0).posY + ")", width - 20, 30);
@@ -79,13 +89,15 @@ void draw() {
     textAlign(CENTER);
     fill(255, 0, 0);
     text("Game Over", width/2, height/2);
-    text("Score: " + score, width/2, height/2 + 50);
+    text("Score: " + score, width/2, height/2 + 40);
+    
     
     fill(0);
     rect(w-150, h+85, 300, 100);
     
     fill(255, 0, 0);
-    
+    saveHighScores();
+    text("HighScore: " + int(loadStrings("highscores.txt")[0]), width/2, height/2 + 75);
     text("Play Again? " , width/2, height/2 + 150);
     
     
@@ -101,7 +113,7 @@ void draw() {
 
 void mousePressed() {
   if (gameOver) {
-    if ( mouseX >= w-150 && mouseX =< w+150 && mouseY > h+85 && mouseY< h+185) {
+    if ( (mouseX >= w-150) && (mouseX <= w+150) && (mouseY > h+85) && (mouseY <= h+185)) {
       
        setup();
        gameOver = false;

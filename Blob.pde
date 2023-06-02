@@ -73,7 +73,7 @@ void eatEnemy() {
         // Blob is smaller or equal in size, it gets eaten
         println("Blob got eaten by an enemy!");
         myBlobs.remove(this);
-        gameOver = true;
+        if (myBlobs.size() == 0) gameOver = true;
       }
     }
   }
