@@ -3,10 +3,13 @@ int h;
 float R;
 float G;
 float B;
+String playerName = ""; // Variable to store the player's name
+boolean startScreen = true; // Flag to indicate whether the game is in the start screen mode
 ArrayList<Blob> myBlobs;
 ArrayList<Pellet> pellets;
 ArrayList<Enemy> enemies;
 boolean gameOver = false;
+HashMap<String, Integer> scores = new HashMap<String, Integer>();
 String[] highScores;
 boolean spacebarPressed;
 //boolean enterPressed;
@@ -40,11 +43,37 @@ void saveHighScores() {
   }
 }
 
+void drawStartScreen() {
+  background(255);
+  textAlign(CENTER);
+  textSize(40);
+  fill(0);
+  text("Enter Your Name", width/2, height/2 - 50);
+  
+  textSize(30);
+  text("Name: " + playerName, width/2, height/2);
+  
+  // Draw a rectangle around the name input field
+  rectMode(CENTER);
+  noFill();
+  stroke(0);
+  rect(width/2, height/2, 300, 40);
+  
+  // Instructions for starting the game
+  textSize(20);
+  fill(0, 150);
+  text("Press Enter to start the game", width/2, height/2 + 100);
+}
+
+
 void draw() {
+  if (startScreen) {
+    drawStartScreen();
+  } 
+  else {
   background(255);
   
   if (!gameOver) {
-
   handleKeyPress();
   
   for (int i = myBlobs.size() - 1; i >= 0; i--) {
@@ -106,6 +135,7 @@ void draw() {
     
     
   }
+  }
   
   
 }
@@ -124,6 +154,10 @@ void mousePressed() {
 }
 
 
+void startGame() {
+  startScreen = false;
+}
+
 void handleKeyPress() {
   if (spacebarPressed) {
     spacebarPressed = false;
@@ -131,10 +165,24 @@ void handleKeyPress() {
   } 
 }
 
+
+
+
 void keyPressed() {
-  if (key == ' ') {
+  if (startScreen) {
+    if (key == ENTER || key == RETURN) {
+      startGame();
+    } else if (key == BACKSPACE && playerName.length() > 0) {
+      playerName = playerName.substring(0, playerName.length() - 1);
+    } else if (key != CODED && playerName.length() < 15) {
+      playerName += key;
+    }
+  }
+  else {
+   if (key == ' ') {
     spacebarPressed = true;
-  } 
+  }  
+  }
 }
 
 void splitBlobs() {

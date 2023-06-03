@@ -45,7 +45,7 @@ void checkBoundary() {
 void moveEnemy(Blob target) {
   float targetX = target.posX;
   float targetY = target.posY;
-  float easing = 0.05; // Adjust the easing value to control the speed of movement
+  float easing = 0.03; // Adjust the easing value to control the speed of movement
 
   float dx = targetX - posX;
   float dy = targetY - posY;

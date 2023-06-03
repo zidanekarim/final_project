@@ -84,6 +84,14 @@ void eatEnemy() {
     stroke(0);
     fill(myColor);
     circle(posX, posY, size);
+    float textSize = map(size, 0, 100, 10, 20);
+    textAlign(CENTER, CENTER);
+    textSize(textSize);
+    fill(255);
+    text(playerName, posX, posY);
+      
+    
+    
   }
   void checkCollision() {
     for (Blob other : myBlobs) {
