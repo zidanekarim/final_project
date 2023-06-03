@@ -18,13 +18,26 @@ int lastPelletTime;
 int lastRecombineTime;
 int score;
 int prevScore;
+
 void setup() {
   score = 0;
   size(1600, 900);
   w = width / 2;
   h = height / 2;
-  highScores = loadStrings("highscores.txt");
-  prevScore = int(loadStrings("highscores.txt")[0]);
+  String prevScoreString = loadStrings("highscores.txt")[0]; 
+  String curScore = "";
+  for (int i = 0; i <  prevScoreString.length(); i++) {
+    if (prevScoreString.substring(i, i+1).equals(":")) {
+        curScore = prevScoreString.substring(i+2);
+        break;
+    }
+    
+  }
+  prevScore = int(curScore);
+  println(prevScore);
+  
+  
+  
   R = random(255);
   G = random(255);
   B = random(255);
@@ -38,7 +51,11 @@ void setup() {
 }
 void saveHighScores() {
   if (score > prevScore) {
-    String[] newScore = {score+""};
+    String accumulator = "";
+    for (String i : scores.keySet()) {
+    accumulator = i + ": " + score ;
+    }
+    String[] newScore = {accumulator};
     saveStrings("highscores.txt", newScore);
   }
 }
@@ -51,7 +68,7 @@ void drawStartScreen() {
   text("Enter Your Name", width/2, height/2 - 50);
   
   textSize(30);
-  text("Name: " + playerName, width/2, height/2);
+  text("Name: " + playerName, width/2, height/2+10);
   
   // Draw a rectangle around the name input field
   rectMode(CENTER);
@@ -113,20 +130,21 @@ void draw() {
   
   }
   else {
-    //noLoop();
     textSize(40);
     textAlign(CENTER);
     fill(255, 0, 0);
     text("Game Over", width/2, height/2);
     text("Score: " + score, width/2, height/2 + 40);
-    
+    scores.replace(playerName, score);
+    saveHighScores();
+    text("HighScore: " + (loadStrings("highscores.txt")[0]), width/2, height/2 + 75);
     
     fill(0);
-    rect(w-150, h+85, 300, 100);
+    rect(w, h+135, 300, 100);
     
     fill(255, 0, 0);
-    saveHighScores();
-    text("HighScore: " + int(loadStrings("highscores.txt")[0]), width/2, height/2 + 75);
+    
+    
     text("Play Again? " , width/2, height/2 + 150);
     
     
@@ -172,6 +190,8 @@ void keyPressed() {
   if (startScreen) {
     if (key == ENTER || key == RETURN) {
       startGame();
+      scores.put(playerName, score);
+      
     } else if (key == BACKSPACE && playerName.length() > 0) {
       playerName = playerName.substring(0, playerName.length() - 1);
     } else if (key != CODED && playerName.length() < 15) {

@@ -62,11 +62,12 @@ void eatEnemy() {
     float distance = dist(posX, posY, enemy.posX, enemy.posY);
     int blobRadius = size / 2;
     int enemyRadius = enemy.size / 2;
-
+    color enemyColor = enemy.myColor;
     if (distance <= (blobRadius + enemyRadius)/2) {
       if (blobRadius > enemyRadius) {
         enemies.remove(i);
         size += enemyRadius;
+        myColor = enemyColor;
         score += 100;
         println("Blob ate an enemy!");
       } else {
