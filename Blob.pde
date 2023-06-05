@@ -69,10 +69,10 @@ void eatEnemy() {
         size += enemyRadius;
         myColor = enemyColor;
         score += 100;
-        println("Blob ate an enemy!");
+       // println("Blob ate an enemy!");
       } else {
         // Blob is smaller or equal in size, it gets eaten
-        println("Blob got eaten by an enemy!");
+        //println("Blob got eaten by an enemy!");
         myBlobs.remove(this);
         if (myBlobs.size() == 0) gameOver = true;
       }

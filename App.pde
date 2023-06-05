@@ -12,6 +12,7 @@ boolean gameOver = false;
 HashMap<String, Integer> scores = new HashMap<String, Integer>();
 String[] highScores;
 boolean spacebarPressed;
+boolean paused = false;
 //boolean enterPressed;
 int lastEnemyTime;
 int lastPelletTime;
@@ -34,7 +35,7 @@ void setup() {
     
   }
   prevScore = int(curScore);
-  println(prevScore);
+ // println(prevScore);
   
   
   
@@ -89,8 +90,13 @@ void draw() {
   } 
   else {
   background(255);
+  fill(220);
+  rect(10, 20, 10, 50);
+  rect(30, 20, 10, 50);
+  
   
   if (!gameOver) {
+    if (!paused) {
   handleKeyPress();
   
   for (int i = myBlobs.size() - 1; i >= 0; i--) {
@@ -127,7 +133,13 @@ void draw() {
   }
   text("Score: " + score, width - 20, 60);
   
-  
+    }
+    else {
+      textSize(50);
+      text("PAUSED", w, h);
+    }
+    
+    
   }
   else {
     textSize(40);
@@ -167,6 +179,12 @@ void mousePressed() {
        gameOver = false;
       }
     
+  }
+  else {
+    if ( (mouseX >= 0) && (mouseX <= 40) && (mouseY > 0) && (mouseY <= 50)) {
+      if (paused) paused = false;
+      else paused = true;
+    }
   }
   
 }
