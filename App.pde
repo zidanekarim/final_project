@@ -1,10 +1,13 @@
+import processing.sound.*;
 int w;
 int h;
+SoundFile music;
+
 float R;
 float G;
 float B;
-String playerName = ""; // Variable to store the player's name
-boolean startScreen = true; // Flag to indicate whether the game is in the start screen mode
+String playerName = ""; 
+boolean startScreen = true; 
 ArrayList<Blob> myBlobs;
 ArrayList<Pellet> pellets;
 ArrayList<Enemy> enemies;
@@ -21,6 +24,7 @@ int score;
 int prevScore;
 
 void setup() {
+  music = new SoundFile(this, "music.mp3");
   score = 0;
   size(1600, 900);
   w = width / 2;
@@ -35,7 +39,6 @@ void setup() {
     
   }
   prevScore = int(curScore);
- // println(prevScore);
   
   
   
@@ -71,13 +74,11 @@ void drawStartScreen() {
   textSize(30);
   text("Name: " + playerName, width/2, height/2+10);
   
-  // Draw a rectangle around the name input field
   rectMode(CENTER);
   noFill();
   stroke(0);
   rect(width/2, height/2, 300, 40);
   
-  // Instructions for starting the game
   textSize(20);
   fill(0, 150);
   text("Press Enter to start the game", width/2, height/2 + 100);
@@ -97,11 +98,13 @@ void draw() {
   
   if (!gameOver) {
     if (!paused) {
+      if (!music.isPlaying()) {
+        music.loop();  // Start playing the music on loop if it's not already playing
+      }
   handleKeyPress();
   
   for (int i = myBlobs.size() - 1; i >= 0; i--) {
     Blob blob = myBlobs.get(i);
-    //blob.update();
     blob.display();
     blob.followMouse();
     blob.checkCollision();
@@ -111,14 +114,14 @@ void draw() {
   
   if (millis() - lastRecombineTime >= 3000) {
     recombineBlobs();
-    lastRecombineTime = millis();  // Update the lastRecombineTime variable
+    lastRecombineTime = millis();  
   }
   
   
   if (millis() - lastEnemyTime >= 5000) {
     Enemy newEnemy = new Enemy( int(random(width)), int(random(height)), int(random((myBlobs.get(0)).size +25)),  color(int(random(255)), int(random(255)), int(random(255))));
     enemies.add(newEnemy);
-    lastEnemyTime = millis();  // Update the lastEnemyTime variable
+    lastEnemyTime = millis();  
   }
   generateNewMap();
   generatePellets();
@@ -142,6 +145,7 @@ void draw() {
     
   }
   else {
+    music.stop();
     textSize(40);
     textAlign(CENTER);
     fill(255, 0, 0);
@@ -252,9 +256,8 @@ void recombineBlobs() {
     }
 
     if (toRecombine) {
-    mainBlob.size = totalSize; // Set the size of the main blob to the sum of all blob sizes
+    mainBlob.size = totalSize; 
 
-    // Remove all blobs except the main blob
     for (int i = myBlobs.size() - 1; i > 0; i--) {
       myBlobs.remove(i);
     }
@@ -269,7 +272,7 @@ void generateNewMap() {
   int posY = mainBlob.posY;
   int size = mainBlob.size;
   
-  int boundaryThreshold = size / 2; // Distance threshold from the edge
+  int boundaryThreshold = size / 2; 
   
   if (posX - boundaryThreshold < 0) {
     resetMap();

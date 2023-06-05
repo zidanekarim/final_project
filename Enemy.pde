@@ -23,7 +23,7 @@ class Enemy extends Blob {
 
       if (distance <= blobRadius - pelletRadius) {
         pellets.remove(i);
-        this.size += 5; // Increase the size of the blob when eating a pellet
+        this.size += 5; 
       }
     }
   }
@@ -45,26 +45,22 @@ void checkBoundary() {
 void moveEnemy(Blob target) {
   float targetX = target.posX;
   float targetY = target.posY;
-  float easing = 0.03; // Adjust the easing value to control the speed of movement
+  float easing = 0.03; 
 
   float dx = targetX - posX;
   float dy = targetY - posY;
 
-  // Calculate the distance between the enemy and the target
   float distance = sqrt(dx * dx + dy * dy);
 
   if (distance != 0) {
-    // Normalize the direction vector
     dx /= distance;
     dy /= distance;
   }
 
   if (size >= target.size) {
-    // Move towards the target
     posX += dx * easing * size;
     posY += dy * easing * size;
   } else {
-    // Move away from the target
     posX -= dx * easing * size;
     posY -= dy * easing * size;
   }

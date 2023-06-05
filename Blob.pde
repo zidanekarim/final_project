@@ -23,14 +23,13 @@ class Blob {
   PVector direction = PVector.sub(target, currentPosition);
   direction.normalize();
   
-  float speed = 250.0 / size; // Adjust the speed here
+  float speed = 250.0 / size; 
   
   PVector velocity = direction.mult(speed);
   
   posX += velocity.x;
   posY += velocity.y;
   
-  // Adjust the position if the blob goes off the screen horizontally
   if (posX < 0) {
     posX = 0;
   } else if (posX > width) {
@@ -50,7 +49,7 @@ class Blob {
 
       if (distance <= blobRadius - pelletRadius) {
         pellets.remove(i);
-        size += 5; // Increase the size of the blob when eating a pellet
+        size += 5; 
         score += 10;
       }
     }
@@ -69,10 +68,8 @@ void eatEnemy() {
         size += enemyRadius;
         myColor = enemyColor;
         score += 100;
-       // println("Blob ate an enemy!");
       } else {
-        // Blob is smaller or equal in size, it gets eaten
-        //println("Blob got eaten by an enemy!");
+
         myBlobs.remove(this);
         if (myBlobs.size() == 0) gameOver = true;
       }
@@ -106,7 +103,7 @@ void eatEnemy() {
           posX -= correction.x;
           posY -= correction.y;
 
-          touching = true;  // Set the touching variable to true
+          touching = true;  
         }
       }
     }
