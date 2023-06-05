@@ -2,7 +2,7 @@ import processing.sound.*;
 int w;
 int h;
 SoundFile music;
-
+SoundFile sad;
 float R;
 float G;
 float B;
@@ -25,6 +25,10 @@ int prevScore;
 
 void setup() {
   music = new SoundFile(this, "music.mp3");
+  sad = new SoundFile(this, "sad.mp3");
+  if (sad.isPlaying()) {
+        sad.stop();  
+      }
   score = 0;
   size(1600, 900);
   w = width / 2;
@@ -99,7 +103,7 @@ void draw() {
   if (!gameOver) {
     if (!paused) {
       if (!music.isPlaying()) {
-        music.loop();  // Start playing the music on loop if it's not already playing
+        music.loop();  
       }
   handleKeyPress();
   
@@ -145,6 +149,9 @@ void draw() {
     
   }
   else {
+    if (!sad.isPlaying()) {
+        sad.loop(); 
+      }
     music.stop();
     textSize(40);
     textAlign(CENTER);
@@ -194,10 +201,6 @@ void mousePressed() {
 }
 
 
-void startGame() {
-  startScreen = false;
-}
-
 void handleKeyPress() {
   if (spacebarPressed) {
     spacebarPressed = false;
@@ -211,7 +214,7 @@ void handleKeyPress() {
 void keyPressed() {
   if (startScreen) {
     if (key == ENTER || key == RETURN) {
-      startGame();
+      startScreen = false;
       scores.put(playerName, score);
       
     } else if (key == BACKSPACE && playerName.length() > 0) {
