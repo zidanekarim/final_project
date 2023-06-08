@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-06-04T20:22:31.751Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36" etag="yhLrCzNjnkqUXKJlIn8F" version="21.3.6" type="github">
+<mxfile host="app.diagrams.net" modified="2023-06-08T19:50:02.801Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="f7pce18ON_WgDyiSDVR5" version="21.3.7" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="1434" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -15,17 +15,17 @@
         <mxCell id="zkfFHV4jXpPFQw0GAbJ--2" value="#int H;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rounded=0;shadow=0;html=0;" parent="zkfFHV4jXpPFQw0GAbJ--0" vertex="1">
           <mxGeometry y="52" width="180" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="zkfFHV4jXpPFQw0GAbJ--3" value="#float R, G, B;&#xa;#Blob myBlob&#xa;#ArrayList&lt;Pellet&gt; pellets;&#xa;#ArrayList&lt;Blob&gt; enemyBlobs;&#xa;#int lastPelletTime;0&#xa;#String playerName = &quot;&quot;;&#xa;#boolean gameOver = false;&#xa;#boolean startScreen = true;&#xa;#String[] highScores;&#xa;#boolean spacerbarPressed;&#xa;#int lastEnemyTime;&#xa;#int lastRecombineTime;&#xa;#int score;&#xa;#int prevScore;&#xa;#HashMap&lt;String, Integer&gt; &#xa;scores;&#xa;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rounded=0;shadow=0;html=0;" parent="zkfFHV4jXpPFQw0GAbJ--0" vertex="1">
-          <mxGeometry y="78" width="180" height="242" as="geometry" />
+        <mxCell id="zkfFHV4jXpPFQw0GAbJ--3" value="#float R, G, B;&#xa;#Blob myBlob&#xa;#ArrayList&lt;Pellet&gt; pellets;&#xa;#ArrayList&lt;Blob&gt; enemyBlobs;&#xa;#int lastPelletTime;0&#xa;#String playerName = &quot;&quot;;&#xa;#boolean gameOver = false;&#xa;#boolean startScreen = true;&#xa;#String[] highScores;&#xa;#boolean spacerbarPressed;&#xa;#int lastEnemyTime;&#xa;#int lastRecombineTime;&#xa;#int score;&#xa;#int prevScore;&#xa;#HashMap&lt;String, Integer&gt; &#xa;scores;&#xa;#SoundFile music;&#xa;#SoundFile sad&#xa;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rounded=0;shadow=0;html=0;" parent="zkfFHV4jXpPFQw0GAbJ--0" vertex="1">
+          <mxGeometry y="78" width="180" height="282" as="geometry" />
         </mxCell>
         <mxCell id="zkfFHV4jXpPFQw0GAbJ--4" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="zkfFHV4jXpPFQw0GAbJ--0" vertex="1">
-          <mxGeometry y="320" width="180" height="8" as="geometry" />
+          <mxGeometry y="360" width="180" height="8" as="geometry" />
         </mxCell>
         <mxCell id="zkfFHV4jXpPFQw0GAbJ--5" value="#setup: void;&#xa;#draw : void; &#xa;#generatePellets : void;&#xa;#eatPellet : void;&#xa;#generateEnemies: void;&#xa;# createMap : void;&#xa;# enemyFight : void;&#xa;# saveHighScores : void&#xa;# drawStartScreen : void&#xa;# mousePressed : void&#xa;# startGame : void&#xa;# handleKeyPress : void&#xa;# drawEnemies : void&#xa;# generateNewMap : void&#xa;# recombineBlobs : void&#xa;# splitBlobs : void&#xa;# resetMap : void&#xa;# keyPressed : void&#xa;&#xa;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="zkfFHV4jXpPFQw0GAbJ--0" vertex="1">
-          <mxGeometry y="328" width="180" height="312" as="geometry" />
+          <mxGeometry y="368" width="180" height="272" as="geometry" />
         </mxCell>
         <mxCell id="zkfFHV4jXpPFQw0GAbJ--6" value="Blob" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="120" y="700" width="160" height="360" as="geometry">
+          <mxGeometry x="120" y="780" width="160" height="360" as="geometry">
             <mxRectangle x="130" y="380" width="160" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
@@ -49,7 +49,7 @@
         <mxCell id="nxC2drzx9BSa-lSYIhTN-6" value="# constructor : Pellet&lt;br style=&quot;padding: 0px; margin: 0px; text-align: left;&quot;&gt;&lt;span style=&quot;text-align: left;&quot;&gt;+ drawPellet : void&lt;/span&gt;&lt;br style=&quot;padding: 0px; margin: 0px; text-align: left;&quot;&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="zkfFHV4jXpPFQw0GAbJ--13" vertex="1">
           <mxGeometry y="68" width="160" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="nxC2drzx9BSa-lSYIhTN-1" value="" style="endArrow=none;html=1;rounded=0;exitX=0.431;exitY=-0.029;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.538;entryY=1.007;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="zkfFHV4jXpPFQw0GAbJ--6" edge="1" target="zkfFHV4jXpPFQw0GAbJ--5">
+        <mxCell id="nxC2drzx9BSa-lSYIhTN-1" value="" style="endArrow=none;html=1;rounded=0;entryX=0.538;entryY=1.007;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="zkfFHV4jXpPFQw0GAbJ--6" target="zkfFHV4jXpPFQw0GAbJ--5" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="140" y="410" as="sourcePoint" />
             <mxPoint x="190" y="410" as="targetPoint" />
